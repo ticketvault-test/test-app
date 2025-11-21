@@ -1,0 +1,34 @@
+<div class="app">
+    <ion-menu contentId="main-content">
+        <ion-header class="app__header">
+            <ion-toolbar>
+                <ion-title>Navigation</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ul class="app__menu-list">
+                <li class="app__menu-list-item"
+                    [routerLinkActive]="'_active'"
+                    [routerLink]="'items'">Go to items &#8594;
+                </li>
+                <li class="app__menu-list-item"
+                    [routerLinkActive]="'_active'"
+                    [routerLink]="'details'">Details &#8594;
+                </li>
+            </ul>
+        </ion-content>
+    </ion-menu>
+    <div class="ion-page" id="main-content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>{{ title() | uppercase }}</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-router-outlet></ion-router-outlet>
+        </ion-content>
+    </div>
+</div>

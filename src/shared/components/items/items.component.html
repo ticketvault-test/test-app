@@ -1,0 +1,56 @@
+<ion-content [scrollEvents]="true">
+    <ion-refresher slot="fixed"
+                   (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content
+                pullingText="Pull down for refresh"
+                refreshingSpinner="circles"
+                refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="items-touch-area">
+        <div class="items-list__wrapper">
+            <ion-list class="items-list" [inset]="true">
+                <ion-item-divider [sticky]="true">
+                    <ion-label class="items-list__count-label">
+                        Count: {{ itemsService.items().length }}
+                    </ion-label>
+                </ion-item-divider>
+
+                @for (item of itemsService.items(); track $index) {
+                    <ion-item-sliding #sliding class="items-list__item-sliding">
+                        <ion-item class="items-list__item"
+                                  [button]="true"
+                                  [detail]="false"
+                                  (click)="openItem(item)">
+                            <ion-label>
+                                <div class="top-row">
+                                    <span class="name">{{ item.name }}</span>
+                                    <span class="meta-code">{{ item.code }}</span>
+                                </div>
+
+                                <div class="chips">
+                                    @if (item.archived) {
+                                        <ion-chip color="medium">archived</ion-chip>
+                                    }
+                                </div>
+
+                                <div class="meta-row">
+                                    <small>Created At: {{ item.createdAt | date:'shortDate' }}</small>
+                                    <small>Upd: {{ item.updatedAt | date:'shortTime' }}</small>
+                                    <small>Progress: {{ item.progressPercent }}%</small>
+                                </div>
+                            </ion-label>
+                            <ion-badge slot="end" color="tertiary">{{ item.id }}</ion-badge>
+                        </ion-item>
+
+                        <ion-item-options side="end">
+                            <ion-item-option color="secondary" (click)="archive(item, sliding)">Архив</ion-item-option>
+                            <ion-item-option color="danger" (click)="confirmDelete(item, sliding)">Удалить</ion-item-option>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                }
+            </ion-list>
+        </div>
+    </div>
+</ion-content>

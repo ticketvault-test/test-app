@@ -1,0 +1,14 @@
+<ion-content>
+    <div class="item-details">
+        @if (item) {
+            <h2>General</h2>
+            <p><strong>ID:</strong> {{ item.id }}</p>
+            <p><strong>Description:</strong> {{ item.description }}</p>
+            <p><strong>Details:</strong> {{ item.details }}</p>
+            <p><strong>Owner:</strong> {{ item.owner }}</p>
+        } @else {
+            <p>Nothing found.</p>
+            <ion-button (click)="goBack()">Go back</ion-button>
+        }
+    </div>
+</ion-content>
