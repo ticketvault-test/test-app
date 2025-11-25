@@ -20,7 +20,6 @@ export class AppComponent {
 
   constructor() {
     this.swUpdate.versionUpdates.subscribe(event => {
-      console.log(event);
       if (event.type === 'VERSION_READY') {
         this.swUpdate.activateUpdate().then(() => document.location.reload());
       }
