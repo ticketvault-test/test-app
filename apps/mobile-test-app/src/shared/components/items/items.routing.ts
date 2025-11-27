@@ -7,6 +7,6 @@ export const itemsRouting: Routes = [
   },
   {
     path: ':id',
-    loadComponent: () => import('../items/item-details/item-details.component').then(c => c.ItemDetailsComponent),
+    loadComponent: () => import('./item-details/item-details.component').then(c => c.ItemDetailsComponent),
   },
 ];

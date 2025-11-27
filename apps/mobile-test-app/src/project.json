@@ -1,0 +1,106 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "mobile-test-app",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/mobile-test-app/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "options": {
+        "browser": "apps/mobile-test-app/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/mobile-test-app/src/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/mobile-test-app/public"
+          }
+        ],
+        "styles": [
+          "apps/mobile-test-app/src/styles.scss",
+          "node_modules/@ionic/angular/css/core.css",
+          "node_modules/@ionic/angular/css/normalize.css",
+          "node_modules/@ionic/angular/css/structure.css",
+          "node_modules/@ionic/angular/css/typography.css",
+          "node_modules/@ionic/angular/css/padding.css",
+          "node_modules/@ionic/angular/css/float-elements.css",
+          "node_modules/@ionic/angular/css/text-alignment.css",
+          "node_modules/@ionic/angular/css/text-transformation.css",
+          "node_modules/@ionic/angular/css/flex-utils.css"
+        ],
+        "outputPath": "dist/apps/mobile-test-app"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "1MB",
+              "maximumError": "2MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kB",
+              "maximumError": "8kB"
+            }
+          ],
+          "outputHashing": "all",
+          "serviceWorker": "apps/mobile-test-app/src/ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "mobile-test-app:build:production"
+        },
+        "development": {
+          "buildTarget": "mobile-test-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n"
+    },
+    "test": {
+      "executor": "@angular/build:karma",
+      "options": {
+        "polyfills": [
+          "zone.js",
+          "zone.js/testing"
+        ],
+        "tsConfig": "apps/mobile-test-app/src/tsconfig.spec.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/mobile-test-app/src/public"
+          }
+        ],
+        "styles": [
+          "apps/mobile-test-app/src/styles.scss"
+        ]
+      }
+    }
+  }
+}

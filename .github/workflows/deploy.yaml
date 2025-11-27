@@ -1,17 +1,25 @@
-name: Deploy Angular to GitHub Pages
+name: Deploy mobile-test-app to GitHub Pages
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # <-- This enables manual runs from GitHub UI
+  workflow_dispatch:
 
 permissions:
+  contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NX_APP: mobile-test-app
+      BASE_HREF: /test-app/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,14 +27,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Angular app
-        run: npm run build -- --configuration production --base-href /test-app/
+      - name: Verify Nx project
+        run: npx nx show projects | grep "$NX_APP"
+
+      - name: Build (production)
+        run: npx nx build $NX_APP --configuration=production --base-href $BASE_HREF
+
+      - name: List build output
+        run: |
+          echo "Contents of dist/apps/$NX_APP:"
+          ls -R dist/apps/$NX_APP | head -n 50
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -34,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/mobile-test-app/browser
+          path: dist/apps/${{ env.NX_APP }}/browser
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
