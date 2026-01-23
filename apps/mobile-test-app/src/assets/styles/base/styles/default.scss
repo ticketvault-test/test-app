@@ -1,0 +1,47 @@
+html {
+  font-size: 100%;
+  background: var(--bg-color-base);
+}
+
+html,body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  width: 100%;
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  > * {
+    word-spacing: .4px;
+    letter-spacing: -.3px;
+    font-family: var(--font-family-inter);
+    --ion-font-family: var(--font-family-inter);
+  }
+}
+
+h1 {
+  line-height: 100%;
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+h2 {
+  line-height: 100%;
+  font-size: var(--font-size-mxl);
+  font-weight: var(--font-weight-medium);
+}
+
+h3 {
+  line-height: 100%;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+h4 {
+  line-height: 100%;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semi-bold);
+}
