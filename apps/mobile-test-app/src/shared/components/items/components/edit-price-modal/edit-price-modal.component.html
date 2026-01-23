@@ -1,0 +1,21 @@
+<div class="edit-price-modal _d-f _f-dir-col _p-24">
+    <form #pricingForm="ngForm"
+          class="custom-form _d-f _f-dir-col _grow-1 _h-100">
+            <div class="custom-form__item">
+                <ion-label class="custom-form__item-label">Adjust Price by $ or %</ion-label>
+                <ion-input class="custom-form__item-input _mb-16"
+                           type="number"
+                           fill="outline"
+                           placeholder="e.g. -10 or 10">
+                    <div class="_d-f _f-align-center _gap-8"
+                         slot="end">
+                    </div>
+                </ion-input>
+            </div>
+        <ion-button expand="block"
+                    size="large"
+                    color="primary"
+                    type="submit">Save
+        </ion-button>
+    </form>
+</div>

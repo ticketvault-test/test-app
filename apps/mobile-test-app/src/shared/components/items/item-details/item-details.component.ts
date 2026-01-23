@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { IonicModule, NavController, GestureController, IonContent } from '@ionic/angular';
+import { IonicModule, NavController, GestureController, IonContent, ModalOptions } from '@ionic/angular';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, inject, AfterViewInit, OnDestroy, viewChild } from '@angular/core';
 
 import { ItemsService } from '../../../services/mock-generator.service';
+import { EditPriceModalComponent } from '../components/edit-price-modal/edit-price-modal.component';
+import { ModalController } from '@ionic/angular/standalone';
 
 @Component({
   standalone: true,
@@ -17,6 +19,7 @@ import { ItemsService } from '../../../services/mock-generator.service';
 export class ItemDetailsComponent implements AfterViewInit, OnDestroy {
   public readonly navController = inject(NavController);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly modalController = inject(ModalController);
   private readonly itemsService = inject(ItemsService);
   private readonly gestureCtrl = inject(GestureController);
 
@@ -49,5 +52,27 @@ export class ItemDetailsComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.swipeGesture?.destroy();
     this.swipeGesture = undefined;
+  }
+
+
+  public async editAdjustPrice(): Promise<void> {
+    const modal = await this.modalController.create(this.prepareEditPriceModalComponent());
+
+    await modal.present();
+
+    const result = await modal.onDidDismiss();
+
+    if (!result.data) return;
+
+  }
+
+  private prepareEditPriceModalComponent(): ModalOptions {
+    return {
+      component: EditPriceModalComponent,
+      breakpoints: [0, 1],
+      initialBreakpoint: 1,
+      cssClass: 'custom-modal-auto-height',
+      handle: false,
+    };
   }
 }

@@ -3,7 +3,7 @@
         <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
 
-    <div class="item-details">
+    <div class="item-details" (click)="editAdjustPrice()">
         @if (item) {
             <h2>General</h2>
             <p><strong>ID:</strong> {{ item.id }}</p>

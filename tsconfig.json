@@ -24,13 +24,12 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./apps/mobile-test-app/src/tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./apps/mobile-test-app/src/tsconfig.spec.json"
     }
   ]
 }
