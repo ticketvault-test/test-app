@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { SwUpdate } from '@angular/service-worker';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, signal, inject, } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, signal, inject, 
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [IonicModule, CommonModule, RouterLink, RouterLinkActive],
+  imports: [IonicModule, CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
