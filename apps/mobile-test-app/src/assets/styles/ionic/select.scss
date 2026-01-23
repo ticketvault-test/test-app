@@ -1,0 +1,8 @@
+ion-select {
+  &::part(text) {
+    font-size: var(--font-size-m);
+  }
+  &::part(container) {
+    font-size: var(--font-size-m);
+  }
+}

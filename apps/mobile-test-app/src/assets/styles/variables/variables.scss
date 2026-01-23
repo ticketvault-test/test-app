@@ -1,0 +1,103 @@
+:root {
+  // variables colors
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-gray: #6C6C6C;
+  --color-green: #52a04d;
+  --color-gray-light: #B3B3B3;
+  --color-gray-lighter: #C3C3C3;
+
+  --bg-color-e5: #e5e5e5;
+  --bg-color-base: #ececec;
+  --bg-color-base-light: #F5F5F5;
+  --bg-color-white: var(--color-white);
+  --bg-color-black: var(--color-black);
+  --bg-color-primary: var(--color-primary);
+
+  --border-color-primary: var(--color-primary);
+  --border-color-gray: var(--color-gray);
+  --border-color-gray-lighter: var(--color-gray-lighter);
+  --border-color-secondary: #00000017;
+  --border-color-table-header: #FFFFFF99;
+  --border-color-table-cell: #0000004A;
+
+  // app colors
+  --color-primary: #E4980B;
+  --color-secodary: #FFF6E6;
+
+  // font family
+  --font-family-inter: 'Inter', serif, sans-serif;
+
+  // text colors
+  --text-color-primary: var(--color-primary);
+  --text-color-warning: #FF3838;
+  --text-color-creen: var(--color-green);
+  --text-color-black: var(--color-black);
+  --text-color-white: var(--color-white);
+  --text-color-gray: var(--color-gray);
+  --text-color-gray-light: var(--color-gray-light);
+
+  // icon colors
+  --icon-color-black: var(--color-black);
+  --icon-color-primary: var(--color-primary);
+  --icon-color-secondary: var(--color-secodary);
+
+  // forms:
+  --input-border-color: #d2d2d2;
+  --input-border-error-color: #FF3838;
+  --input-placehoder-color: #8e8e8e;
+  --input-border-color-valid: var(--color-primary);
+
+  --checkbox-size: 18px;
+
+  // tables"
+  --table-header-row-bg-color: #505558;
+  --table-header-row-text-color: #FFFFFF99;
+
+  // spinner colors
+  --spinner-border-color: #E0F3FF;
+  --spinner-main-border-color: #E4980B;
+  --spinner-bg-color: rgba(255, 255,255, 0.7);
+
+  // buttons
+  --primary-btn-bg-active-color: var(--color-primary);
+
+  --secondary-btn-border-color: #FDC968;
+  --secondary-btn-text-color: var(--color-primary);
+  --secondary-btn-bg-color: var(--color-secodary);
+
+  // font-size
+  --font-size-huge: 42px;
+  --font-size-6xl: 32px;
+  --font-size-5xl: 30px;
+  --font-size-4xl: 28px;
+  --font-size-2mxl: 26px;
+  --font-size-mxl: 24px;
+  --font-size-3xl: 22px;
+  --font-size-2xl: 20px;
+  --font-size-xl: 18px;
+  --font-size-l: 17px;
+  --font-size-mdl: 16px;
+  --font-size-md: 15px;
+  --font-size-m: 14px;
+  --font-size-ms: 13px;
+  --font-size-s: 12px;
+  --font-size-2s: 11px;
+  --font-size-3s: 10px;
+
+  //font-weight
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  // ionic colors
+  --ion-color-primary: var(--color-primary);
+  --ion-color-secondary: var(--color-secodary);
+
+  // ionic font family
+  --ion-font-family: var(--font-family-inter);
+
+  // keyboard height
+  --keyboard-offset: 0px
+}

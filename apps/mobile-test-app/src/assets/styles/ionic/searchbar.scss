@@ -1,0 +1,18 @@
+ion-searchbar.searchbar-should-show-clear {
+  padding: 0;
+  min-height: 36px;
+  --box-shadow: none;
+  --border-radius: 8px;
+  --color: var(--text-color-black);
+  --background: var(--bg-color-white);
+  --cancel-button-color: var(--color-gray);
+  --clear-button-color: var(--color-gray);
+  .searchbar-input {
+    font-size: var(--font-size-m);
+    border: 1px solid var(--border-color-gray-lighter);
+  }
+  .searchbar-search-icon.sc-ion-searchbar-ios {
+    width: 16px;
+    color: var(--color-black);
+  }
+}

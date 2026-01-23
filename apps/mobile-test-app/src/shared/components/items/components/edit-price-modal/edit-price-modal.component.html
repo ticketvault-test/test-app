@@ -1,17 +1,53 @@
 <div class="edit-price-modal _d-f _f-dir-col _p-24">
     <form #pricingForm="ngForm"
-          class="custom-form _d-f _f-dir-col _grow-1 _h-100">
+          class="custom-form _d-f _f-dir-col _grow-1 _h-100"
+          (ngSubmit)="applyForm(pricingForm)">
             <div class="custom-form__item">
                 <ion-label class="custom-form__item-label">Adjust Price by $ or %</ion-label>
                 <ion-input class="custom-form__item-input _mb-16"
                            type="number"
                            fill="outline"
-                           placeholder="e.g. -10 or 10">
+                           placeholder="e.g. -10 or 10"
+                           [maxlength]="INPUT_VALIDATION.maxLength"
+                           [(ngModel)]="adjustPrice"
+                           [name]="FORM_FIELD.adjustPrice"
+                           (ionInput)="onAdjustPriceInput($event)">
                     <div class="_d-f _f-align-center _gap-8"
                          slot="end">
+                        <div class="edit-price-modal__sign-btn _d-f _justify-center _f-align-center"
+                                type="button"
+                                [class._active]="!isPercentage()"
+                                (click)="isPercentage.set(false)">
+                            <span class="_fs-24 _fw-500">$</span>
+                        </div>
+                        <div class="edit-price-modal__sign-btn _d-f _justify-center _f-align-center"
+                                type="button"
+                                [class._active]="isPercentage()"
+                                (click)="isPercentage.set(true)">
+                            <span class="_fs-24 _fw-500">%</span>
+                        </div>
                     </div>
                 </ion-input>
             </div>
+        <div class="custom-form__item">
+            <ion-label class="custom-form__item-label">
+                New Price
+            </ion-label>
+            <ion-input class="custom-form__item-input _mb-16"
+                       type="number"
+                       fill="outline"
+                       placeholder="e.g. 10$"
+                       [maxlength]="INPUT_VALIDATION.maxLength"
+                       [(ngModel)]="newPrice"
+                       [name]="FORM_FIELD.setPriceTo"
+                       (ionInput)="onAmountInput($event)">
+                <button class="edit-price-modal__sign-btn _active"
+                        type="button"
+                        slot="end">
+                    <span class="_fs-24 _fw-500">$</span>
+                </button>
+            </ion-input>
+        </div>
         <ion-button expand="block"
                     size="large"
                     color="primary"

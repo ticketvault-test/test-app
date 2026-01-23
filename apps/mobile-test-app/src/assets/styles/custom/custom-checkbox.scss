@@ -1,0 +1,12 @@
+ion-checkbox {
+  &.custom-checkbox {
+    &._size {
+      &-small {
+        --size: 15px;
+      }
+      &-default {
+        --size: 20px;
+      }
+    }
+  }
+}

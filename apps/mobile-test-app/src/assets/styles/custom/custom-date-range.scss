@@ -1,0 +1,31 @@
+.custom-date-range {
+  height: 38px;
+  padding: 3px;
+  border-radius: 10px;
+  background: #E9E7E7;
+  &__start, &__end {
+    padding: 0 9px;
+    background: var(--bg-color-white);
+    border: 1px solid var(--border-color-gray-lighter);
+    ion-item {
+     --min-height: 30px;
+    }
+    ion-input {
+      min-height: 30px;
+    }
+    &._error {
+      border-color: var(--input-border-error-color);
+    }
+  }
+  &__start {
+    border-radius: 8px 0 0 8px;
+  }
+  &__end {
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+  }
+  &__date-input {
+    width: 100%;
+    min-width: 75px;
+  }
+}

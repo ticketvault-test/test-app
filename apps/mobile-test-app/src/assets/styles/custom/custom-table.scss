@@ -1,0 +1,27 @@
+.custom-table {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 0;
+  &__row {
+    flex-wrap: nowrap;
+    align-items: center;
+    &-header {
+      color: var(--table-header-row-text-color);
+      flex-wrap: nowrap;
+      align-items: center;
+      background-color: var(--table-header-row-bg-color);
+    }
+  }
+  &__col {
+    &._event-last-col {
+      min-width: 120px;
+    }
+    &-checkbox {
+      width: 50px;
+      flex: 0 0 50px;
+      padding: 0 14px;
+      ion-checkbox {
+        --size: 21px;
+      }
+    }
+  }
+}

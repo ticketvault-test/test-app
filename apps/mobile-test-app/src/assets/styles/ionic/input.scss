@@ -1,0 +1,36 @@
+ion-input[fill="outline"], ion-input[fill="outline"].input-fill-outline {
+  min-height: 47px;
+  --border-width: 1px;
+  --padding-end: 10px;
+  --border-radius: 8px;
+  --padding-start: 10px;
+  --highlight-height: 1px;
+  --border-color: var(--input-border-color);
+  --placeholder-color: var(--input-placehoder-color);
+  --highlight-color-focused: var(--input-border-color);
+  --highlight-color-valid: var(--input-border-color-valid);
+  letter-spacing: -.3px;
+  &.ion-invalid {
+    --highlight-color: var(--input-border-error-color);
+  }
+  .input-wrapper {
+    .native-wrapper {
+      > [slot=start]:last-of-type {
+        margin-right: 8px;
+        margin-inline-end: 8px;
+        --webkit-margin-right: 8px;
+      }
+    }
+  }
+  &.ios {
+    .input-wrapper {
+      border: 1px solid var(--border-color);
+    }
+  }
+  .input-bottom.sc-ion-input-ios {
+    border: unset;
+  }
+  .native-input.sc-ion-input-ios:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--color-white) inset !important;
+  }
+}

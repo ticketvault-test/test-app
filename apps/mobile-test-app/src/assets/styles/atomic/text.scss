@@ -1,0 +1,169 @@
+._text {
+  &-center {
+    text-align: center;
+  }
+  &-vertical {
+    &-bottom {
+      vertical-align: bottom;
+    }
+  }
+  &-color {
+    &-warning {
+      color: var(--text-color-warning);
+    }
+    &-green {
+      color: var(--text-color-creen);
+    }
+    &-black {
+      color: var(--text-color-black);
+    }
+    &-white {
+      color: var(--text-color-white);
+    }
+    &-primary {
+      color: var(--text-color-primary);
+    }
+    &-gray {
+      color: var(--text-color-gray);
+      &-light {
+        color: var(--text-color-gray-light);
+      }
+    }
+  }
+  &-uppercase {
+    text-transform: uppercase;
+  }
+  &-lowercase {
+    text-transform: lowercase;
+  }
+  &-unset {
+    text-transform: unset;
+  }
+  &-capitalize {
+    text-transform: capitalize;
+  }
+}
+
+._list-style {
+  &-decimal {
+    list-style: decimal;
+  }
+}
+
+._word {
+  &-break {
+    word-break: break-word;
+    &-all {
+      word-break: break-all;
+    }
+  }
+}
+
+._white-space {
+  &-nowrap {
+    white-space: nowrap;
+  }
+}
+
+._ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+._one-row {
+  -webkit-line-clamp: 1;
+}
+
+._two-rows {
+  -webkit-line-clamp: 2;
+}
+
+._line-height {
+  &-13 {
+    line-height: 13px;
+  }
+  &-14 {
+    line-height: 14px;
+  }
+  &-16 {
+    line-height: 16px;
+  }
+  &-17 {
+    line-height: 17px;
+  }
+  &-18 {
+    line-height: 18px;
+  }
+  &-19 {
+    line-height: 19px;
+  }
+  &-20 {
+    line-height: 20px;
+  }
+  &-21 {
+    line-height: 21px;
+  }
+  &-22 {
+    line-height: 22px;
+  }
+  &-24 {
+    line-height: 24px;
+  }
+  &-29 {
+    line-height: 29px;
+  }
+}
+
+._letter-spacing {
+  &-1 {
+    letter-spacing: .1px;
+  }
+  &-2 {
+    letter-spacing: .2px;
+  }
+  &-minus {
+    &-2 {
+      letter-spacing: -.2px;
+    }
+    &-3 {
+      letter-spacing: -.3px;
+    }
+    &-4 {
+      letter-spacing: -.4px;
+    }
+    &-5 {
+      letter-spacing: -.5px;
+    }
+    &-6 {
+      letter-spacing: -.6px;
+    }
+    &-7 {
+      letter-spacing: -.7px;
+    }
+    &-8 {
+      letter-spacing: -.8px;
+    }
+    &-9 {
+      letter-spacing: -.9px;
+    }
+  }
+}
+
+._word-spacing {
+  &-2 {
+    word-spacing: .2px;
+  }
+  &-12 {
+    word-spacing: 1.2px;
+  }
+  &-4 {
+    word-spacing: .4px;
+  }
+  &-minus {
+    &-20 {
+      word-spacing: -2px;
+    }
+  }
+}

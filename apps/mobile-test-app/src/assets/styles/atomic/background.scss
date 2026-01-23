@@ -1,0 +1,17 @@
+._bg-color, .list-ios._bg-color {
+  &-base {
+    background-color: var(--bg-color-base);
+    &-light {
+      background-color: var(--bg-color-base-light);
+    }
+  }
+  &-white {
+    background-color: var(--color-white);
+  }
+  &-primary {
+    background-color: var(--color-primary);
+  }
+  &-secondary {
+    background-color: var(--color-secodary);
+  }
+}
