@@ -1,0 +1,39 @@
+<ion-header class="_p-14">
+    <div class="_d-f _f-align-center _justify-between _w-100 _mb-14">
+        <p class="_fs-18 _fw-600">Search Performer/Team</p>
+    </div>
+    <ion-searchbar placeholder="Performer/Team"
+                   [value]="searchValue()"
+                   [debounce]="300"
+                   (ionInput)="onSearchChange($event.detail.value)"
+                   (ionClear)="onClear()"></ion-searchbar>
+</ion-header>
+<ion-content>
+        <div class="search-events-autocomplete _d-f _f-dir-col _p-14">
+            @if (filteredEvents().length) {
+                <ul class="_d-f _f-dir-col _gap-4 _overflow-x-hidden _overflow-y-auto">
+                    @for (event of filteredEvents(); track event.id) {
+                        <li class="_cursor-pointer _p-4 _bg-color-base-light _border-radius-6"
+                            [class._bg-color-primary-light]="selectedEvent()?.id === event.id"
+                            (click)="onSelectEvent(event)">
+                            <span class="_fs-16 _ellipsis _one-row">{{ event.name }}</span>
+                        </li>
+                    }
+                    <li class="_cursor-pointer _p-4 _bg-color-base _border-radius-6 _d-f _f-align-center _justify-between"
+                         (click)="getSearchEvents(true)">
+                        <span class="_fs-16 _ellipsis _one-row">Refresh if new item added...</span>
+                        <ion-icon class="_fs-16 _text-color-primary _ml-10"
+                                  src="assets/icons/refresh.svg"></ion-icon>
+                    </li>
+                </ul>
+            }
+        </div>
+</ion-content>
+<div class="_p-14">
+    <ion-button expand="block"
+                size="default"
+                color="primary"
+                type="button"
+                (click)="save()">Save
+    </ion-button>
+</div>

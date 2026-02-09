@@ -1,0 +1,68 @@
+<ion-header class="events__header">
+    <div class="events__header-content _d-f _f-align-center _f-dir-col">
+        <div class="_d-f _f-align-center _justify-between _w-100 _mb-24">
+            <h1 class="_letter-spacing-minus-6">{{ PAGE_NAME.events }}</h1>
+            <div class="_d-f _f-align-center _ml-10">
+                <ion-button class="events__header-reload-btn"
+                            color="light"
+                            shape="round"
+                            (click)="location.reload()">
+                    <ion-icon slot="icon-only"
+                              src="assets/icons/refresh.svg"></ion-icon>
+                </ion-button>
+                <ion-button class="events__header-reload-btn _logout _ml-12"
+                            color="light"
+                            shape="round"
+                            (click)="logoutService.logout(); eventsFiltersStore.clearStore();">
+                    <ion-icon slot="icon-only"
+                              name="log-out-outline"></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+        <ion-button class="_w-100 _mb-18 _fs-16"
+                    expand="block"
+                    size="small"
+                    color="secondary"
+                    (click)="openFilters()">
+            <ion-icon class="_fs-20 _mr-12"
+                      src="assets/icons/filter-primary.svg"></ion-icon>
+            Filter
+        </ion-button>
+
+        <!--    BROADCAST CHANGE    -->
+
+        <ion-segment [value]="EVENT_TABS_FILTERS_BROADCAST.allEvents"
+                     [mode]="PLATFORM_MODE.md"
+                     (ionChange)="changeBroadCast($event)">
+            @for (tab of EVENT_TABS_FILTERS_BROADCAST | keyvalue; track $index) {
+                <ion-segment-button [value]="tab.value">
+                    <ion-label>
+                        <span class="_text-capitalize _fs-14 _fw-500 _letter-spacing-minus-3">{{ tab.value }}</span></ion-label>
+                </ion-segment-button>
+            }
+        </ion-segment>
+    </div>
+</ion-header>
+<ion-content>
+    <ion-refresher slot="fixed"
+                   [disabled]="!canRefresh()"
+                   (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+    </ion-refresher>
+    <ion-list class="events__list _bg-color-base _h-100">
+        <cdk-virtual-scroll-viewport #viewport
+                                     class="virtual-scroll-viewport"
+                                     [itemSize]="ITEM_HEIGHT"
+                                     [minBufferPx]="ITEM_HEIGHT * 5"
+                                     [maxBufferPx]="ITEM_HEIGHT * 8"
+                                     (scroll)="onScroll()">
+            <ion-item *cdkVirtualFor="let event of eventsStore.entities(); let i = index; trackBy: trackBy"
+                      #eventItem
+                      class="events__list-item _border-radius-8"
+                      (click)="navController.navigateForward([PAGE_URL.event + '/' + event.eventId], { queryParams: this.setQueryParams() });">
+                <events-list-card class="_w-100"
+                                  [event]="event"></events-list-card>
+            </ion-item>
+        </cdk-virtual-scroll-viewport>
+    </ion-list>
+</ion-content>

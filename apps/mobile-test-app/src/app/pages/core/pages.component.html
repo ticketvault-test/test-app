@@ -1,0 +1,9 @@
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed"
+                   [disabled]="disableGlobalRefresher"
+                   (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+    </ion-refresher>
+    <ion-router-outlet [animated]="false"
+                       [swipeGesture]="false"></ion-router-outlet>
+</ion-content>

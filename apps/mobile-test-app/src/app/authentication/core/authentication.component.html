@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed"
+                   (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+    </ion-refresher>
+    <div class="authentication _d-f _h-100 _relative">
+        <div class="authentication__left _w-50">
+            <div class="authentication__left-body"></div>
+        </div>
+        <div class="authentication__right _w-50 _d-f _f-dir-col _f-align-center _justify-around _p-24 _overflow-hidden">
+            <tv-logo class="_mb-24"></tv-logo>
+            <div class="authentication__right-body _p-24 _relative">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="authentication__right-footer _mt-24 _relative">
+                <ion-icon class="authentication__right-footer-logo"
+                          src="assets/icons/ticketvault-logo-fill.svg"/>
+                <ion-icon class="authentication__right-footer-ticket _absolute"
+                          src="assets/icons/ticket.svg"/>
+            </div>
+            <ion-button class="authentication__right-footer-how-inst-btn _absolute"
+                        size="small"
+                        color="secondary"
+                        (click)="openHowToInstallModal()">
+                How to install
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

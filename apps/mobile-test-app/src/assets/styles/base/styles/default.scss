@@ -3,7 +3,12 @@ html {
   background: var(--bg-color-base);
 }
 
+html.plt-pwa {
+  height: 100%;
+}
+
 html,body {
+  height: 100%;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   overscroll-behavior: none;

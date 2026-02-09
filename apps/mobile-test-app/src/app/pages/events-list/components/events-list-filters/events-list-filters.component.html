@@ -1,0 +1,248 @@
+<div class="events-list-filters-container _d-f _f-dir-col _p-22">
+    <div class="events-list-filters-container__header _d-f _f-align-center _mb-24 _mt-14">
+        <ion-icon class="_fs-18"
+                  src="assets/icons/filter-gray.svg"></ion-icon>
+        <p class="_ml-10 _opacity-5 _fs-16">Filter</p>
+    </div>
+    <form #eventFiltersForm="ngForm"
+          class="custom-form _d-f _f-dir-col _grow-1 _h-100"
+          (ngSubmit)="applyForm(eventFiltersForm)">
+        <div class="_d-f _f-align-center _mb-16">
+
+            <!--            EVENT STATUS-->
+
+            <div class="_d-f _f-align-center _p-2 _bg-color-base _border-radius-8 _gap-2">
+                @for (status of EVENT_FILTERS_STATUS | keyvalue : originalOrder; track $index) {
+                    <button class="custom-toggle-btn _text-capitalize"
+                            [class._active]="statusValues()[status.value]"
+                            (click)="toggleStatus(status.value); $event.stopPropagation(); $event.preventDefault();">
+                        <span class="_fw-500 _line-height-17">{{ status.value }}</span>
+                    </button>
+                }
+            </div>
+
+            <!--            EVENT MODE-->
+
+            <!--            <div class="custom-form__item _ml-10">-->
+            <!--                <ion-segment [ngModel]="eventMode()"-->
+            <!--                             [name]="FORM_FIELD.eventMode"-->
+            <!--                             [mode]="PLATFORM_MODE.ios"-->
+            <!--                             (ngModelChange)="changeEventMode.emit($event)">-->
+            <!--                    @for (tab of EVENTS_MODE | keyvalue : originalOrder; track $index) {-->
+            <!--                        <ion-segment-button [value]="tab.value">-->
+            <!--                            <ion-label class="_text-capitalize _fs-13">{{ tab.value }}</ion-label>-->
+            <!--                        </ion-segment-button>-->
+            <!--                    }-->
+            <!--                </ion-segment>-->
+            <!--            </div>-->
+        </div>
+
+        <!--        DATE RANGE-->
+
+        <div class="custom-form__item _mb-14 _size-small">
+            <ion-select #dateRangeSelectRef
+                        class="_border-solid-gray-lighter _border-radius-8 _ph-6"
+                        placeholder="Date range"
+                        [ngModel]="filters()?.selectedDateRange"
+                        [toggleIcon]="'chevron-down-outline'"
+                        [name]="FORM_FIELD.dateRange">
+                @for (dateRange of DATE_RANGE_TYPES_DATA; track $index) {
+                    <ion-select-option [value]="dateRange.id">
+                        <span class="_fs-14">{{ dateRange.name }}</span>
+                    </ion-select-option>
+                }
+            </ion-select>
+        </div>
+
+        <!--        CUSTOM DATE RANGE-->
+
+        <div class="custom-date-range _d-f _f-align-center _align-self-start _mb-16 _w-100"
+             [class._mb-30]="startDateError() || endDateError()">
+            <div class="custom-date-range__start _relative _w-100"
+                 [class._error]="startDateError()">
+                <ion-item class="_fs-14"
+                          lines="none"
+                          [disabled]="dateRangeSelectRef.value !== DATE_RANGE_TYPE_ID.custom">
+                    <ion-icon class="_fs-16 _mr-6"
+                              slot="start"
+                              src="assets/icons/calendar.svg"
+                              id="startDatetimeBtn"></ion-icon>
+                    <input class="custom-date-range__date-input"
+                           type="text"
+                           placeholder="MM/DD/YYYY"
+                           mask="M0/d0/0000"
+                           name="startDate"
+                           [leadZeroDateTime]="true"
+                           [dropSpecialCharacters]="false"
+                           [disabled]="dateRangeSelectRef.value !== DATE_RANGE_TYPE_ID.custom"
+                           [ngModel]="getDisplayDate(dateRangeSelectRef.value === DATE_RANGE_TYPE_ID.custom ? manualStartDate() : getDateFromRange(dateRangeSelectRef.value).startDate)"
+                           (focus)="startDateError.set(null)"
+                           (blur)="onStartDateBlur($event)">
+                </ion-item>
+                <ion-popover #startDateModal
+                             trigger="startDatetimeBtn"
+                             cssClass="events-filters-date-time-popover"
+                             [keepContentsMounted]="true">
+                    <ng-template>
+                        <ion-datetime presentation="date"
+                                      id="startDatetime"
+                                      [value]="getISOString(manualStartDate())"
+                                      (ionChange)="changeStartDate($event)">
+                        </ion-datetime>
+                    </ng-template>
+                </ion-popover>
+
+                @if (startDateError()) {
+                    <div class="_absolute _fs-11 _text-color-warning _mt-4">
+                        {{ startDateError() }}
+                    </div>
+                }
+            </div>
+            <div class="custom-date-range__end _relative _w-100"
+                 [class._error]="endDateError()">
+                <ion-item class="_fs-14"
+                          lines="none"
+                          [disabled]="dateRangeSelectRef.value !== DATE_RANGE_TYPE_ID.custom">
+                    <ion-icon class="_fs-16 _mr-6"
+                              slot="start"
+                              src="assets/icons/calendar.svg"
+                              id="endDatetimeBtn"></ion-icon>
+                    <input class="custom-date-range__date-input"
+                           type="text"
+                           placeholder="MM/DD/YYYY"
+                           mask="M0/d0/0000"
+                           name="endDate"
+                           [leadZeroDateTime]="true"
+                           [dropSpecialCharacters]="false"
+                           [disabled]="dateRangeSelectRef.value !== DATE_RANGE_TYPE_ID.custom"
+                           [ngModel]="getDisplayDate(dateRangeSelectRef.value === DATE_RANGE_TYPE_ID.custom ? manualEndDate() : getDateFromRange(dateRangeSelectRef.value).endDate)"
+                           (focus)="endDateError.set(null)"
+                           (blur)="onEndDateBlur($event)">
+                </ion-item>
+                <ion-popover #endDateModal
+                             trigger="endDatetimeBtn"
+                             cssClass="events-filters-date-time-popover"
+                             [keepContentsMounted]="true">
+                    <ng-template>
+                        <ion-datetime presentation="date"
+                                      id="endDatetime"
+                                      [value]="getISOString(manualEndDate())"
+                                      (ionChange)="onEndDateChange($event)">
+                        </ion-datetime>
+                    </ng-template>
+                </ion-popover>
+
+                @if (endDateError()) {
+                    <div class="_absolute _text-color-warning _fs-11 _mt-4">
+                        {{ endDateError() }}
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!--    SEARCH EVENTS AUTOCOMPLETE  -->
+
+        <div class="custom-form__item _size-small _mb-18">
+            <div class="_border-solid-gray-lighter _border-radius-8 _ph-6 _pv-8 _cursor-pointer _d-f _f-align-center"
+                 (click)="openSearchEventModal()">
+                <ion-icon slot="start"
+                          name="search-outline"></ion-icon>
+                <span class="_fs-14 _line-height-18 _ml-10">
+                    @if (selectedSearchEvent()) {
+                        {{ selectedSearchEvent()?.name }}
+                    } @else {
+                        Performer/Team
+                    }
+                </span>
+                @if (selectedSearchEvent()) {
+                    <ion-button class="_ml-auto"
+                                color="light"
+                                shape="round"
+                                (click)="selectedSearchEvent.set(null); $event.stopPropagation(); $event.preventDefault()">
+                        <ion-icon class="_text-color-gray"
+                                  slot="icon-only"
+                                  name="close-circle"></ion-icon>
+                    </ion-button>
+                }
+            </div>
+            <input type="hidden"
+                   [ngModel]="selectedSearchEvent()"
+                   [name]="FORM_FIELD.eventSearch">
+        </div>
+
+        <!--    EVENT TYPES-->
+
+        <ul class="_d-f _f-align-center _f-wrap _gap-8 _mb-16">
+            @for (event of EVENT_TYPE_DATA; track $index) {
+                <li class="_d-f _f-align-center _p-6 _border-radius-8 _border-solid-gray-lighter _bg-color-white _line-height-18">
+                    <ion-checkbox class="custom-checkbox _size-small"
+                                  labelPlacement="end"
+                                  [checked]="selectedEventType() === $index"
+                                  (ionChange)="onEventTypeChange($index)">
+                        <span class="_fs-14 _text-capitalize _ml-8">{{ event.name }}</span>
+                    </ion-checkbox>
+                </li>
+            }
+        </ul>
+
+        <!--    ADDITIONAL EVENT TYPES  -->
+
+        <ul class="_d-f _f-align-center _f-wrap _gap-8 _mb-16">
+            <li class="_d-f _f-align-center _p-6 _border-radius-8 _border-solid-gray-lighter _bg-color-white _line-height-18">
+                <ion-checkbox class="custom-checkbox _size-small"
+                              labelPlacement="end"
+                              [ngModel]="filters()?.includeRegular"
+                              [name]="FORM_FIELD.regularEvents">
+                    <span class="_fs-14 _text-capitalize _ml-8">Regular Events</span>
+                </ion-checkbox>
+            </li>
+            <li class="_d-f _f-align-center _p-6 _border-radius-8 _border-solid-gray-lighter _bg-color-white _line-height-18">
+                <ion-checkbox class="custom-checkbox _size-small"
+                              labelPlacement="end"
+                              [ngModel]="filters()?.includeParking"
+                              [name]="FORM_FIELD.parking">
+                    <span class="_fs-14 _text-capitalize _ml-8">Parking</span>
+                </ion-checkbox>
+            </li>
+        </ul>
+
+        <!--    PERFORMANCE TYPE-->
+
+        <div class="custom-form__item _size-small _mb-18">
+            <ion-label class="custom-form__item-label _small-label">Categories</ion-label>
+            <div class="_border-solid-gray-lighter _border-radius-8 _ph-6 _pv-8 _cursor-pointer _d-f _f-align-center _justify-between"
+                 (click)="openCategoriesModal()">
+                <span class="_fs-14 _line-height-18">
+                    @if (selectedCategoryIds().length === 0) {
+                        All categories
+                    } @else {
+                        {{ selectedCategoryIds().length }} selected
+                    }
+                </span>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </div>
+            <input type="hidden"
+                   [ngModel]="selectedCategoryIds()"
+                   [name]="FORM_FIELD.perfTypes">
+        </div>
+
+        <!--        ADVANCED FILTERS-->
+
+        <!--        <div class="_d-f _f-align-center _mb-12 _cursor-pointer"-->
+        <!--             (click)="toggleAdvancedFilters.set(!toggleAdvancedFilters())">-->
+        <!--            <ion-icon class="_fs-18"-->
+        <!--                      slot="start"-->
+        <!--                      src="assets/icons/filter-primary.svg"></ion-icon>-->
+        <!--            <h3 class="_text-color-primary _ml-10">Advanced filters</h3>-->
+        <!--        </div>-->
+
+        <!--        ACTION-->
+
+        <ion-button class="_mt-auto"
+                    expand="block"
+                    size="default"
+                    color="primary"
+                    type="submit">Apply
+        </ion-button>
+    </form>
+</div>

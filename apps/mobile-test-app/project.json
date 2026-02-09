@@ -1,0 +1,98 @@
+{
+  "name": "mobile-test-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/mobile-test-app/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/mobile-test-app",
+        "browser": "apps/mobile-test-app/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/mobile-test-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui/src"]
+        },
+        "assets": [
+          "apps/mobile-test-app/src/assets",
+          {
+            "glob": "**/*",
+            "input": "apps/mobile-test-app/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/mobile-test-app/src/assets",
+            "output": "assets"
+          }
+        ],
+        "styles": [
+          "@ionic/angular/css/core.css",
+          "@ionic/angular/css/display.css",
+          "@ionic/angular/css/normalize.css",
+          "@ionic/angular/css/structure.css",
+          "@ionic/angular/css/typography.css"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "8kb",
+              "maximumError": "16kb"
+            }
+          ],
+          "outputHashing": "all",
+          "serviceWorker": "apps/mobile-test-app/ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4666
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "mobile-test-app:build:production"
+        },
+        "development": {
+          "buildTarget": "mobile-test-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "mobile-test-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/mobile-test-app/**/*.ts",
+          "apps/mobile-test-app/**/*.html"
+        ]
+      }
+    }
+  }
+}

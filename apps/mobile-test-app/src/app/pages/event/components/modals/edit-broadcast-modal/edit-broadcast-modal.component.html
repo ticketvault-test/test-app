@@ -1,0 +1,35 @@
+<ion-header>
+    <div class="_d-f _f-align-center _justify-between _w-100 _p-14">
+        <p class="_fs-18 _fw-600">Edit Broadcast {{ eventTicketGroup().length > 1 ? '(Multiple)' : '' }}</p>
+    </div>
+</ion-header>
+<div class="_p-14">
+    <div class="_w-100 _border-btm-solid-secondary _mb-22 _pb-6">
+        <ion-checkbox class="custom-checkbox _size-default"
+                      labelPlacement="end"
+                      name="select-all"
+                      [checked]="allSelected()"
+                      (ionChange)="toggleSelectAll()">
+            <span class="_fs-18 _text-capitalize _ml-8">Select All</span>
+        </ion-checkbox>
+    </div>
+    <ul class="_d-f _gap-vertical-30 _f-wrap _mb-18">
+        @for (networkType of networkTypes(); track $index) {
+            <li class="_w-50">
+                <ion-checkbox class="custom-checkbox _size-default"
+                              labelPlacement="end"
+                              [name]="networkType.name"
+                              [checked]="networkType.isChecked"
+                              (ionChange)="toggleNetworkType(networkType.id, $event.detail.checked)">
+                    <span class="_fs-18 _text-capitalize _ml-8">{{ networkType.name }}</span>
+                </ion-checkbox>
+            </li>
+        }
+    </ul>
+    <ion-button expand="block"
+                size="default"
+                color="primary"
+                type="submit"
+                (click)="modalController.dismiss(this.networkTypes())">Save
+    </ion-button>
+</div>

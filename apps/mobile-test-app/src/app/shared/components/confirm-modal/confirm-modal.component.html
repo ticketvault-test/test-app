@@ -1,0 +1,31 @@
+<ion-header>
+    <div class="_d-f _f-align-center _justify-between _w-100 _p-12 _border-btm-solid-secondary">
+        <p class="_fs-20 _fw-500">{{ data().title }}</p>
+        <ion-button class="_ml-10"
+                    slot="end"
+                    fill="clear"
+                    (click)="modalController.dismiss({ closeType: CONFIRM_MODAL_CLOSE_TYPES.close })">
+            <ion-icon class="_fs-24 _text-color-primary"
+                      slot="icon-only"
+                      name="close-outline"></ion-icon>
+        </ion-button>
+    </div>
+</ion-header>
+<div class="_d-f _f-dir-col _p-12">
+    <div class="_mb-20 _fs-18 _line-height-22"
+         [innerHTML]="data().message"></div>
+    <div class="_d-f _justify-center">
+        @if (data().isCancelBtn) {
+            <ion-button fill="outline"
+                        size="small"
+                        (click)="modalController.dismiss({ closeType: CONFIRM_MODAL_CLOSE_TYPES.cancel })">{{ data().cancelLabel }}
+            </ion-button>
+        }
+        @if (data().isOkBtn) {
+            <ion-button class="" color="primary"
+                        size="small"
+                        (click)="modalController.dismiss({ closeType: CONFIRM_MODAL_CLOSE_TYPES.ok })">{{ data().okLabel }}
+            </ion-button>
+        }
+    </div>
+</div>

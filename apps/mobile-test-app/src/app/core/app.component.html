@@ -1,8 +1,6 @@
-
 <ion-app>
-        <ion-content [fullscreen]="true">
-            <ion-refresher> </ion-refresher>
-            <router-outlet></router-outlet>
-        </ion-content>
+    <ion-loading [message]="globalSpinnerService.globalSpinnerState().message"
+                 [spinner]="globalSpinnerService.globalSpinnerState().spinnerView"
+                 [isOpen]="globalSpinnerService.globalSpinnerState().loading"></ion-loading>
+    <ion-router-outlet></ion-router-outlet>
 </ion-app>
-    <ion-loading></ion-loading>

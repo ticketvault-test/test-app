@@ -1,0 +1,74 @@
+<ion-grid class="block-table custom-table">
+    <!-- Header Row -->
+    <ion-row class="custom-table__row-header _pv-9">
+        <ion-col class="custom-table__col-checkbox">
+            <ion-checkbox [checked]="allBlocksSelected()"
+                          (ionChange)="toggleAllBlockSelection.emit($event.detail.checked)"></ion-checkbox>
+        </ion-col>
+        <ion-col class="_ph-2">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-21">BLOCK <br>| FLOOR</span>
+        </ion-col>
+        <ion-col class="custom-table__col _event-last-col _mt-auto"
+                 [style.flex]="'0 0 ' + lastColumnWidth()?.toFixed(0) + 'px'"
+                 [style.width.px]="lastColumnWidth()?.toFixed(0)">
+            <div class="_border-left-solid-table-header _ph-8">
+                <ion-icon class="block-table__header-icon _fs-14"
+                          src="assets/icons/internet-antenna-fill.svg"></ion-icon>
+                <span class="_fs-16 _fw-500 _text-uppercase _line-height-21 _ml-4">LISTINGS</span>
+            </div>
+        </ion-col>
+        <!--        <ion-col class="block-table__col-action"></ion-col>-->
+    </ion-row>
+
+    <!-- Data Rows -->
+    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport"
+                                 [style.height]="ITEM_HEIGHT * blockListings().length + 'px'"
+                                 [itemSize]="ITEM_HEIGHT"
+                                 [minBufferPx]="ITEM_HEIGHT * 6"
+                                 [maxBufferPx]="ITEM_HEIGHT * 8">
+        @if (blockListings() && blockListings().length) {
+            <ion-row *cdkVirtualFor="let listing of blockListings(); let $even = even; let i = index; trackBy: trackBy"
+                     class="custom-table__row _pv-8"
+                     [class._bg-color-base-light]="$even">
+                <ion-col class="custom-table__col-checkbox">
+                    <ion-checkbox [checked]="listing.selected"
+                                  (ionChange)="blockSelectionChange.emit({ id: listing.ticketGroupID, checked: $event.detail.checked })"></ion-checkbox>
+                </ion-col>
+                <ion-col class="_ph-2">
+                    <div class="_d-f _f-dir-col">
+                        <p class="_fs-18 _fw-500 _line-height-20 _mb-8 _ellipsis _two-rows">{{ listing.blockName }}</p>
+                        <div class="_d-f _f-align-center _border-left-solid-table-cell"
+                             (click)="adjustFloorsEdit.emit(listing)">
+                        <span class="_fs-18 _fw-500 _line-height-22 _text-nowrap _ml-4 _ellipsis _one-row">
+                            {{ listing.preparedFloor ? ('$' + listing.preparedFloor) : 'N' }}</span>
+                            <ion-button class="_ml-4"
+                                        fill="clear">
+                                <ion-icon class="_fs-12 _p-2 _text-color-gray"
+                                          slot="icon-only"
+                                          src="assets/icons/pencil-fill.svg"></ion-icon>
+                            </ion-button>
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col class="custom-table__col _event-last-col _mt-auto"
+                         [style.flex]="'0 0 ' + lastColumnWidth()?.toFixed(0) + 'px'"
+                         [style.width.px]="lastColumnWidth()?.toFixed(0)">
+                    <div class="_d-f _f-align-center _border-left-solid-primary">
+                        <ion-icon class="_fs-14 _text-color-primary _ml-4"
+                                  src="assets/icons/internet-antenna-fill.svg"></ion-icon>
+                        <span class="_fs-18 _fw-500 _line-height-22 _text-nowrap _ml-4">{{ listing.listing }}</span>
+                    </div>
+                </ion-col>
+                <!--            <ion-col class="block-table__col-action">-->
+                <!--                <ion-button class="_ml-4"-->
+                <!--                            fill="clear"-->
+                <!--                            (click)="blockDetailsNavigate.emit(listing)">-->
+                <!--                    <ion-icon class="_fs-30 _p-2 _text-color-primary"-->
+                <!--                              slot="icon-only"-->
+                <!--                              name="arrow-forward-circle"></ion-icon>-->
+                <!--                </ion-button>-->
+                <!--            </ion-col>-->
+            </ion-row>
+        }
+    </cdk-virtual-scroll-viewport>
+</ion-grid>

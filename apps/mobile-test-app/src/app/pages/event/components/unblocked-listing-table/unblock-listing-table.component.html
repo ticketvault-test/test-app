@@ -1,0 +1,70 @@
+<ion-grid class="unblocked-table custom-table">
+    <!-- Header Row -->
+    <ion-row class="custom-table__row-header _pv-9">
+        <ion-col class="custom-table__col-checkbox">
+            <ion-checkbox [checked]="allUnblockedSelected()"
+                          (ionChange)="toggleAllUnblockedSelection.emit($event.detail.checked)"></ion-checkbox>
+        </ion-col>
+        <ion-col class="_ph-2">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-21">QTY • SECTION • ROW • SEAT <br>| BROADCAST</span>
+        </ion-col>
+        <ion-col class="custom-table__col _event-last-col _pr-10"
+                 [style.flex]="'0 0 ' + lastColumnWidth()?.toFixed(0) + 'px'"
+                 [style.width.px]="lastColumnWidth()?.toFixed(0)">
+            <div class="_border-left-solid-table-header _ph-8">
+                <span class="_fs-16 _fw-500 _text-uppercase _line-height-21">PRICE /<br> COST</span>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <!-- Data Rows -->
+
+    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport"
+                                 [style.height]="ITEM_HEIGHT * unblockedListings().length + 'px'"
+                                 [itemSize]="ITEM_HEIGHT"
+                                 [minBufferPx]="ITEM_HEIGHT * 6"
+                                 [maxBufferPx]="ITEM_HEIGHT * 8">
+        @if (unblockedListings() && unblockedListings().length) {
+            <ion-row *cdkVirtualFor="let listing of unblockedListings(); let i = index; trackBy: trackBy"
+                     class="custom-table__row _pv-8 _bg-color-base-light">
+                <ion-col class="custom-table__col-checkbox">
+                    <ion-checkbox [checked]="listing.selected"
+                                  (ionChange)="unblockedSelectionChange.emit({ id: listing.ticketGroupID, checked: $event.detail.checked })"></ion-checkbox>
+                </ion-col>
+                <ion-col class="_ph-2">
+                    <div class="_d-f _f-dir-col">
+                        <p class="_fs-18 _fw-500 _line-height-20 _mb-8 _ellipsis _two-rows">{{ listing.quantity }} • {{ listing.section }} • {{ listing.row }} • {{ listing.seatsRange }}</p>
+                        <div class="_d-f _f-align-center _gap-6 _border-left-solid-primary _pl-8 _pv-2"
+                             (click)="broadcastEdit.emit(listing)">
+                            <ion-icon class="_fs-14 _text-color-primary"
+                                      src="assets/icons/internet-antenna-fill.svg"></ion-icon>
+                            <span class="_fs-18 _fw-500 _line-height-22">{{ listing.userShNetworks }}</span>
+                            <ion-button fill="clear">
+                                <ion-icon class="_fs-12 _p-2 _text-color-gray"
+                                          slot="icon-only"
+                                          src="assets/icons/pencil-fill.svg"></ion-icon>
+                            </ion-button>
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col class="custom-table__col _event-last-col _pr-10"
+                         [style.flex]="'0 0 ' + lastColumnWidth()?.toFixed(0) + 'px'"
+                         [style.width.px]="lastColumnWidth()?.toFixed(0)">
+                    <div class="_d-f _f-dir-col _border-left-solid-table-cell _bg-color-white _ph-8 _w-fit-content">
+                        <div class="_d-f _f-align-center _mb-2"
+                             (click)="editMarketPrice.emit(listing)">
+                            <span class="_fs-18 _fw-500 _line-height-22">${{ listing.preparedMarketPrice }}</span>
+                            <ion-button class="_ml-4"
+                                        fill="clear">
+                                <ion-icon class="_fs-12 _p-2 _text-color-gray"
+                                          slot="icon-only"
+                                          src="assets/icons/pencil-fill.svg"></ion-icon>
+                            </ion-button>
+                        </div>
+                        <span class="_fs-18 _fw-500 _line-height-22">${{ listing.preparedCost }}</span>
+                    </div>
+                </ion-col>
+            </ion-row>
+        }
+    </cdk-virtual-scroll-viewport>
+</ion-grid>

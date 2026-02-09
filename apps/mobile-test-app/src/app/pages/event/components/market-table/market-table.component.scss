@@ -1,0 +1,46 @@
+.market-table {
+  &.custom-table {
+    --ion-grid-columns: 4;
+    margin-inline-end: unset;
+    -webkit-margin-end: unset;
+    margin-inline-start: unset;
+    -webkit-margin-start: unset;
+    .custom-table__row {
+      height: 56px;
+      max-height: 56px;
+    }
+  }
+  &__title {
+    border-bottom: 1px solid #FFFFFF1A;
+    &-close-btn {
+      &-wrapper {
+        left: -46px;
+        padding: 10px;
+        z-index: 99999;
+      }
+      &.button-has-icon-only {
+        color: #E56767;
+        min-width: 26px;
+        min-height: 26px;
+        border-radius: 50%;
+        background: var(--bg-color-white);
+      }
+    }
+    &-filter-btn.button-has-icon-only {
+      min-width: 24px;
+      min-height: 24px;
+      border-radius: 6px;
+      background: var(--bg-color-black);
+      &._active {
+        background: var(--bg-color-primary);
+      }
+    }
+  }
+  .virtual-scroll-viewport {
+    width: 100%;
+    height: calc(100% - 113px);
+    .cdk-virtual-scroll-content-wrapper {
+      width: 100%;
+    }
+  }
+}

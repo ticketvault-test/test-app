@@ -1,0 +1,10 @@
+{
+  "appVersion": "(owerwrite-by-pipeline-env)",
+  "apiUrl": "api",
+  "loginFailureWarningCount": 10,
+  "loginFailureLockingCount": 20,
+  "stubhubEventUrl": "https://www.stubhub.com/event/",
+  "tmEventUrl": "http://www.ticketmaster.com/event/",
+  "vividEventUrl": "https://www.vividseats.com/p/production/",
+  "seatGeekEventUrl": "https://seatgeek.com/e/events/"
+}

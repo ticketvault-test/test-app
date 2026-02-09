@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "paths": {
+      "@mobile-tv/ui": ["libs/ui/src/index.ts"],
+      "@mobile-tv/services": ["libs/services/src/index.ts"],
+      "@mobile-test-app/models/*": ["apps/mobile-test-app/src/app/shared/models/*"],
+      "@mobile-test-app/helpers/*": ["apps/mobile-test-app/src/app/shared/helpers/*"],
+      "@mobile-test-app/services/*": ["apps/mobile-test-app/src/app/shared/services/*"],
+      "@mobile-test-app/constants/*": ["apps/mobile-test-app/src/app/shared/constants/*"],
+      "@mobile-test-app/directives/*": ["apps/mobile-test-app/src/app/shared/directives/*"],
+
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "exclude": ["node_modules", "tmp"]
+}

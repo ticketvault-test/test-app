@@ -1,0 +1,55 @@
+<div class="event-list-card _p-16">
+    <div class="_mb-8">
+        <div class="_d-f _f-align-center">
+            @if (event()?.isParkingEvent) {
+                <ion-icon class="_fs-10 _mr-8"
+                          src="assets/icons/parking-event.svg"></ion-icon>
+            }
+            <h4 class="_ellipsis _one-row _line-height-24 _letter-spacing-minus-8">{{ event()?.ticketGroupEvent.primaryPerformer.name }}</h4>
+            <ion-button class="event-list-card__more-btn _ml-8"
+                        fill="clear"
+                        (click)="$event.stopPropagation(); popoverService.openPopover($event, getEventPopupMessage(event()))">
+                <ion-icon slot="icon-only"
+                          name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
+        </div>
+    </div>
+    <p class="_ellipsis _one-row _line-height-19 _letter-spacing-minus-8 _mb-20">{{ event()?.ticketGroupEvent.secondaryPerformer.name }}</p>
+    <ul class="_mb-22">
+        <li class="_d-f _f-align-center _ellipsis _one-row _mb-8">
+            <ion-icon class="_fs-13 _text-color-gray-light"
+                      src="assets/icons/location.svg"></ion-icon>
+            <span class="_ml-6 _line-height-18 _letter-spacing-minus-5">{{ event()?.ticketGroupEvent.venueName }}</span>
+        </li>
+        <li class="_d-f _f-align-center _ellipsis _one-row">
+            <ion-icon class="_fs-15 _text-color-gray-light"
+                      name="time"></ion-icon>
+            <span class="_ml-6 _line-height-18 _letter-spacing-minus-5">{{ event()?.ticketGroupEvent?.preparedDateAndTime }}</span>
+        </li>
+    </ul>
+    <ul class="_d-f _f-align-center">
+        <li class="custom-popover__wrapper _d-f _f-align-center _fs-16 _cursor-pointer"
+            (click)="$event.stopPropagation(); popoverService.openPopover($event, getListingPopupMessage())">
+            <span class="_text-color-primary">•</span>
+            <span class="_letter-spacing-minus-6 _ml-2">{{ event()?.ticketGroupCount }}/{{ event()?.myInventoryQuantity }}</span>
+            <ion-button class="_ml-3"
+                        fill="clear">
+                <ion-icon class="_fs-18"
+                          slot="icon-only"
+                          name="information-circle"
+                          color="primary"></ion-icon>
+            </ion-button>
+        </li>
+        <li class="custom-popover__wrapper _d-f _f-align-center _ml-24 _cursor-pointer"
+            (click)="$event.stopPropagation(); popoverService.openPopover($event, getTotalCostPopupMessage())">
+            <span class="_text-color-primary">•</span>
+            <span class="_letter-spacing-2">${{ event().preparedMyInventoryCost ? event().preparedMyInventoryCost : '0' }}</span>
+            <ion-button class="_ml-3"
+                        fill="clear">
+                <ion-icon slot="icon-only"
+                          name="information-circle"
+                          color="primary"></ion-icon>
+            </ion-button>
+        </li>
+    </ul>
+</div>

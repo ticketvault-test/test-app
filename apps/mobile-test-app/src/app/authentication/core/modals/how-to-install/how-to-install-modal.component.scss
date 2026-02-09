@@ -1,0 +1,12 @@
+how-to-install-modal.ion-page {
+  height: 300px;
+  min-width: 340px;
+  .how-to-install-modal {
+    &__header {
+      padding: 14px 14px 20px;
+    }
+    &__content {
+      padding: 0 14px 14px 35px;
+    }
+  }
+}

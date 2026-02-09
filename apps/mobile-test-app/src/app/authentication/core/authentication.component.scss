@@ -1,0 +1,63 @@
+.authentication {
+  &__left {
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background: url('../../../assets/images/login_bg.png') no-repeat top;
+  }
+  &__right {
+    background-color: var(--bg-color-base);
+    &-body {
+      z-index: 1;
+      width: 100%;
+      max-width: 392px;
+      position: relative;
+      border-radius: 10px;
+      background: var(--bg-color-white);
+    }
+    &-footer {
+      &-logo {
+        z-index: 1;
+        width: 138px;
+        height: 16px;
+        color: #989898;
+        position: relative;
+      }
+      &-ticket {
+        left: 15px;
+        top: -87px;
+        z-index: 0;
+        width: 312px;
+        height: 312px;
+        opacity: 0.5;
+        color: var(--color-white);
+      }
+      &-how-inst-btn {
+        right: 20px;
+        z-index: 1;
+        bottom: 20px;
+        --border-color: #989898 !important;
+        --ion-color-secondary-contrast: #989898 !important;
+        --ion-color-base: transparent !important;
+        --ion-color-secondary-tint: transparent !important;
+        --ion-color-secondary-shade: transparent !important;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) or (max-height: 700px) {
+    &__left {
+      display: none;
+    }
+    &__right {
+      width: 100%;
+    }
+  }
+  @media (max-height: 540px) {
+    display: contents;
+    &__right {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+}

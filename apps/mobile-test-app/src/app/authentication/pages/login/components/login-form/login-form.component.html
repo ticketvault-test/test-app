@@ -1,0 +1,62 @@
+<form #loginForm="ngForm"
+      class="custom-form"
+      (ngSubmit)="validateAndSubmit(loginForm)">
+    <div class="custom-form__item">
+        <ion-label class="custom-form__item-label _required">Username</ion-label>
+        <ion-input class="custom-form__item-input _mb-10"
+                   #userNameInput="ngModel"
+                   ngModel
+                   type="text"
+                   fill="outline"
+                   placeholder="Username"
+                   autocomplete="username"
+                   errorText="Invalid user name"
+                   [maxlength]="INPUT_VALIDATION.maxLength"
+                   [required]="true"
+                   [name]="FORM_FIELD.userName"
+                   (ngModelChange)="resetCustomError.emit()"
+                   (ionBlur)="onFieldBlur(userNameInput)">
+            <ion-icon class="_fs-20"
+                      slot="start"
+                      color="primary"
+                      name="person-circle"
+                      aria-hidden="true"></ion-icon>
+        </ion-input>
+    </div>
+    <div class="custom-form__item _mb-10">
+        <ion-label class="custom-form__item-label _required">Password</ion-label>
+        <ion-input class="custom-form__item-input"
+                   #passwordInput="ngModel"
+                   ngModel
+                   fill="outline"
+                   type="password"
+                   placeholder="Password"
+                   errorText="Invalid password"
+                   autocomplete="current-password"
+                   [maxlength]="INPUT_VALIDATION.maxLength"
+                   [required]="true"
+                   [name]="FORM_FIELD.password"
+                   (ngModelChange)="resetCustomError.emit()"
+                   (ionBlur)="onFieldBlur(passwordInput)">
+            <ion-icon class="_fs-18 _text-color-primary"
+                      slot="start"
+                      color="primary"
+                      src="assets/icons/password.svg"
+                      aria-hidden="true"></ion-icon>
+        </ion-input>
+    </div>
+    <div class="_d-f _f-align-center _justify-between _mb-24">
+<!--        <ion-checkbox labelPlacement="end"-->
+<!--                      [ngModel]="true"-->
+<!--                      [name]="FORM_FIELD.rememberMe">-->
+<!--            <span class="_ml-8 _fs-16">Keep me signed-in</span>-->
+<!--        </ion-checkbox>-->
+        <a class="_text-color-warning _fs-16 _mr-2 _ml-auto"
+           [routerLink]="PAGE_URL.forgotPassword">Forgot password?</a>
+    </div>
+    <ion-button expand="block"
+                size="default"
+                color="primary"
+                type="submit">Login
+    </ion-button>
+</form>

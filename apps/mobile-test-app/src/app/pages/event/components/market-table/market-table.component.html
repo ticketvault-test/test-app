@@ -1,0 +1,125 @@
+<ion-grid class="market-table custom-table">
+    <!-- Header Row -->
+    <ion-row class="custom-table__row-header _ph-24">
+        <ion-col class="custom-table__cell market-table__title _pv-16">
+            <div class="_d-f _f-align-center _position-relative _justify-between">
+                <div class="market-table__title-close-btn-wrapper _absolute _cursor-pointer"
+                     (click)="modalController.dismiss()">
+                    <ion-button class="market-table__title-close-btn"
+                                slot="end"
+                                fill="clear">
+                        <ion-icon class="_fs-16"
+                                  slot="icon-only"
+                                  name="close-outline"></ion-icon>
+                    </ion-button>
+                </div>
+                <p class="_fs-24 _line-height-29 _text-color-white">Market</p>
+                <ion-button class="market-table__title-filter-btn _ml-10"
+                            fill="clear"
+                            [class._active]="showSortMenu()"
+                            [id]="'sort-menu-trigger'"
+                            (click)="showSortMenu.set(true)">
+                    <ion-icon class="_fs-14 _text-color-white"
+                              slot="icon-only"
+                              name="filter-outline"></ion-icon>
+                </ion-button>
+                <ion-popover [trigger]="'sort-menu-trigger'"
+                             [isOpen]="showSortMenu()"
+                             cssClass="custom-popover"
+                             (didDismiss)="showSortMenu.set(false)">
+                    <ng-template>
+                        <ion-content>
+                            <ion-list class="_d-f _f-dir-col _f-align-start _p-12">
+                                <ion-item (click)="sortBy(MARKET_TABLE_FIELD.section)">
+                                    <ion-icon class="_fs-14 _text-color-gray-light"
+                                              src="assets/icons/sorting.svg"></ion-icon>
+                                    <span class="_white-space-nowrap _word-spacing-12 _fs-18 _fw-500 _ml-12">Sort by Section</span>
+                                </ion-item>
+                                <ion-item (click)="sortBy(MARKET_TABLE_FIELD.price)">
+                                    <ion-icon class="_fs-14 _text-color-gray-light"
+                                              src="assets/icons/sorting.svg"></ion-icon>
+                                    <span class="_white-space-nowrap _word-spacing-12 _fs-18 _fw-500 _ml-12">Sort by Price</span>
+                                </ion-item>
+                            </ion-list>
+                        </ion-content>
+                    </ng-template>
+                </ion-popover>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row class="custom-table__row-header _pv-16 _ph-24">
+        <ion-col class="custom-table__cell"
+                 size="1"
+                 (click)="sortBy(MARKET_TABLE_FIELD.quantity)">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-19 _cursor-pointer">
+                QTY
+                @if (currentSortField() === MARKET_TABLE_FIELD.quantity) {
+                    <span class="_ml-4">{{ currentSortOrder() === SORT_ORDER.asc ? '↑' : '↓' }}</span>
+                }
+            </span>
+        </ion-col>
+        <ion-col class="custom-table__cell"
+                 size="1.3"
+                 (click)="sortBy(MARKET_TABLE_FIELD.section)">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-19 _cursor-pointer">
+                SEC
+                @if (currentSortField() === MARKET_TABLE_FIELD.section) {
+                    <span class="_ml-4">{{ currentSortOrder() === SORT_ORDER.asc ? '↑' : '↓' }}</span>
+                }
+            </span>
+        </ion-col>
+        <ion-col class="custom-table__cell"
+                 size="1"
+                 (click)="sortBy(MARKET_TABLE_FIELD.row)">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-19 _cursor-pointer">
+                ROW
+                @if (currentSortField() === MARKET_TABLE_FIELD.row) {
+                    <span class="_ml-4">{{ currentSortOrder() === SORT_ORDER.asc ? '↑' : '↓' }}</span>
+                }
+            </span>
+        </ion-col>
+        <ion-col class="custom-table__cell" size="1" (click)="sortBy(MARKET_TABLE_FIELD.price)">
+            <span class="_fs-16 _fw-500 _text-uppercase _line-height-19 _cursor-pointer">
+                PRICE
+                @if (currentSortField() === MARKET_TABLE_FIELD.price) {
+                    <span class="_ml-4">{{ currentSortOrder() === SORT_ORDER.asc ? '↑' : '↓' }}</span>
+                }
+            </span>
+        </ion-col>
+    </ion-row>
+    <!-- Virtual Scroll Viewport -->
+    <cdk-virtual-scroll-viewport class="virtual-scroll-viewport"
+                                 [itemSize]="ITEM_HEIGHT"
+                                 [minBufferPx]="ITEM_HEIGHT * 5"
+                                 [maxBufferPx]="ITEM_HEIGHT * 10">
+        @if (sortedExternalEventListings() && sortedExternalEventListings().length) {
+            <ion-row *cdkVirtualFor="let listing of sortedExternalEventListings(); let i = index; trackBy: trackBy"
+                     class="custom-table__row _ph-24 _pv-8 _opacity-6"
+                     [class._bg-color-base-light]="i % 2 === 1">
+                <ion-col class="custom-table__cell _ph-2"
+                         size="1">
+                    <span class="_ellipsis _two-rows _fs-16 _fw-500 _line-height-20">{{ listing.quantity }}</span>
+                </ion-col>
+                <ion-col class="custom-table__cell _ph-2"
+                         size="1.3">
+                    <span class="_ellipsis _two-rows _fs-16 _fw-500 _line-height-20">{{ listing.sectionName }}</span>
+                </ion-col>
+                <ion-col class="custom-table__cell _ph-2"
+                         size="1">
+                    <span class="_ellipsis _two-rows _fs-16 _fw-500 _line-height-20">{{ listing.row }}</span>
+                </ion-col>
+                <ion-col class="custom-table__cell _ph-2"
+                         size="1">
+                    <span class="_ellipsis _two-rows _fs-16 _fw-500 _line-height-20">${{ listing.preparedPrice }}</span>
+                </ion-col>
+            </ion-row>
+        } @else {
+            <ion-row class="custom-table__row _ph-24 _pv-8 _opacity-6">
+                <ion-col class="custom-table__cell _ph-2"
+                         size="4">
+                    <span class="_ellipsis _two-rows _fs-20 _fw-500 _line-height-20">No data</span>
+                </ion-col>
+            </ion-row>
+        }
+    </cdk-virtual-scroll-viewport>
+</ion-grid>

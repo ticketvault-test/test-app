@@ -1,0 +1,75 @@
+<ion-header class="how-to-install-modal__header">
+    <h3 class="_mb-14">How to Install PWA</h3>
+    <ion-segment [value]="activeMenuTab()"
+                 [mode]="PLATFORM_MODE.md"
+                 (ionChange)="activeMenuTab.set($event.detail.value)">
+        @for (tab of HOW_INSTALL_NAV_MENU | keyvalue : originalOrder; track $index) {
+            <ion-segment-button class="_text-unset"
+                                [value]="tab.value">
+                <ion-label>
+                    <span class="_fs-16 _fw-500">{{ tab.value }}</span>
+                </ion-label>
+            </ion-segment-button>
+        }
+    </ion-segment>
+</ion-header>
+<ion-content>
+    <div class="how-to-install-modal__content _d-f _h-100">
+        @switch (activeMenuTab()) {
+            @case (HOW_INSTALL_NAV_MENU.ios) {
+                <ul class="_d-f _f-dir-col _gap-18 _fs-15 _line-height-17 _list-style-decimal">
+                    <li>
+                        <span class="_ml-6">Open the app in Safari.</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Tap More
+                            <ion-icon class="_text-vertical-bottom"
+                                      name="ellipsis-horizontal"></ion-icon>
+                            , then choose Share or the Share button.</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Select “Add to Home Screen”
+                            <ion-icon class="_text-vertical-bottom _border-solid-black _border-radius-2"
+                                      name="add-outline"></ion-icon>
+                            and confirm.</span>
+                    </li>
+                </ul>
+            }
+            @case (HOW_INSTALL_NAV_MENU.android) {
+                <ul class="_d-f _f-dir-col _gap-18 _fs-15 _line-height-17 _list-style-decimal">
+                    <li>
+                        <span class="_ml-6">Open the app in Google Chrome.</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Tap the three-dot menu
+                            <ion-icon class="_text-vertical-bottom"
+                                      name="ellipsis-vertical"></ion-icon>
+                            (top right).</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Select “Add to Home screen” or “Install app” and confirm.</span>
+                    </li>
+                </ul>
+            }
+            @case (HOW_INSTALL_NAV_MENU.desktop) {
+                <ul class="_d-f _f-dir-col _gap-18 _fs-15 _line-height-17 _list-style-decimal">
+                    <li>
+                        <span class="_ml-6">Open the app in Google Chrome.</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Click the Install icon&nbsp;
+                            <ion-icon class="_text-vertical-bottom"
+                                      src="./assets/icons/install_desktop.svg"></ion-icon>
+                            &nbsp;in the address bar (or open the three-dot menu
+                            <ion-icon class="_text-vertical-bottom"
+                                      name="ellipsis-vertical"></ion-icon>
+                            → Install).</span>
+                    </li>
+                    <li>
+                        <span class="_ml-6">Click “Install”</span>
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+</ion-content>

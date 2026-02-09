@@ -1,0 +1,114 @@
+<ion-header #headerRef
+            class="event__header">
+    <div class="_d-f _f-align-center _border-btm-solid-secondary _ph-10">
+        <ion-button class="event__header-back-btn"
+                    fill="clear"
+                    size="default"
+                    (click)="navController.navigateBack(PAGE_URL.events)">
+            <ion-icon class="_fs-20 _text-color-primary"
+                      slot="start"
+                      src="assets/icons/arrow-left-outline.svg"></ion-icon>
+            <span class="_text-color-primary _ml-7 _letter-spacing-minus-9">Events</span>
+        </ion-button>
+    </div>
+    <event-info-header [eventItem]="eventStore.eventItem()"></event-info-header>
+
+    <div class="event__header-filters _bg-color-white _border-btm-solid-secondary _border-top-solid-secondary">
+        <div class="_d-f _f-align-center _justify-between">
+            <div class="_d-f _f-align-center _gap-8">
+                <ion-checkbox class="event__header-filters-select-all"
+                              [checked]="allSelected()"
+                              (ionChange)="toggleAllItems($event.detail.checked)"></ion-checkbox>
+                <span class="_fs-18 _line-height-16 _letter-spacing-minus-6 _ml-4">Select All</span>
+            </div>
+            <div class="_d-f _f-align-center _gap-12">
+                <ion-button fill="clear"
+                            size="small"
+                            [id]="'market-filter-trigger'"
+                            (click)="isEventFilterMenuOpen.set(true)">
+                    <ion-icon class="_fs-18"
+                              slot="icon-only"
+                              src="assets/icons/filter-vertical-fill.svg"
+                              [class._text-color-black]="!isEventFilterMenuOpen()"
+                              [class._text-color-primary]="isEventFilterMenuOpen()"></ion-icon>
+                </ion-button>
+                <ion-popover cssClass="custom-popover"
+                             [trigger]="'market-filter-trigger'"
+                             [isOpen]="isEventFilterMenuOpen()"
+                             (didDismiss)="isEventFilterMenuOpen.set(false)">
+                    <ng-template>
+                        <ion-content>
+                            <ion-list class="_d-f _f-dir-col _f-align-center _p-12">
+                                <ion-item class="_cursor-pointer"
+                                          (click)="openAdjustPricingRules()">
+                                    <span class="_white-space-nowrap _word-spacing-12 _fs-18 _fw-500">Adjust Pricing Rules</span>
+                                </ion-item>
+                                <ion-item class="_cursor-pointer"
+                                          (click)="unblockListings()">
+                                    <span class="_white-space-nowrap _word-spacing-12 _fs-18 _fw-500">Unblock Listings</span>
+                                </ion-item>
+                                <ion-item class="_cursor-pointer"
+                                          (click)="openBroadcastEdit()">
+                                    <ion-icon class="_fs-14 _text-color-primary"
+                                              src="assets/icons/internet-antenna-fill.svg"></ion-icon>
+                                    <span class="_white-space-nowrap _word-spacing-12 _fs-18 _fw-500 _ml-4">Broadcast</span>
+                                </ion-item>
+                            </ion-list>
+                        </ion-content>
+                    </ng-template>
+                </ion-popover>
+                <ion-button class="event__header-filters-market-btn _ml-12"
+                            fill="outline"
+                            size="small"
+                            color="primary"
+                            [disabled]="eventStore.externalEventListingsPending()"
+                            (click)="openMarketTable()">
+                    <ion-icon class="_fs-14 _text-color-black"
+                              slot="start"
+                              name="eye"></ion-icon>
+                    <span class="_fs-18 _fw-500 _letter-spacing-minus-6 _line-height-24 _text-color-black _letter-spacing-minus-6 _ml-4">Market</span>
+                </ion-button>
+            </div>
+        </div>
+    </div>
+</ion-header>
+<ion-content>
+
+    <!-- BLOCKS -->
+
+    <div class="event__section _bg-color-white">
+        <div class="event__section-header _p-12 _d-f _f-align-center">
+            <ion-icon class="_fs-22"
+                      src="assets/icons/blockchain-colored.svg"></ion-icon>
+            <p class="_fs-16 _fw-600 _text-color-gray _text-uppercase _ml-12">BLOCKS</p>
+        </div>
+        <block-table [blockListings]="eventGroupListings() | filterByFieldTruthyOrFalsy : 'blockId' : true"
+                     [allBlocksSelected]="allBlocksSelected()"
+                     [maxValueForLastColumn]="eventStore.maxValueForLastColumn()"
+                     [maxSymbolWidthColumn]="MAX_SYMBOL_WIDTH_COLUMN"
+                     (blockSelectionChange)="selectionChange($event)"
+                     (adjustFloorsEdit)="editAdjustFloors([$event])"
+                     (toggleAllBlockSelection)="toggleAllBlockedSelection($event)"
+                     (blockDetailsNavigate)="navigateToBlockDetails($event)"
+        ></block-table>
+    </div>
+
+    <!-- UNBLOCKED LISTINGS  -->
+
+    <div class="event__section _bg-color-white">
+        <div class="event__section-header _p-12 _d-f _f-align-center">
+            <ion-icon class="_fs-22"
+                      src="assets/icons/cells-colored.svg"></ion-icon>
+            <p class="_fs-16 _fw-600 _text-color-gray _text-uppercase _ml-12">UNBLOCKED LISTINGS</p>
+        </div>
+        <unblocked-listing-table [unblockedListings]="eventGroupListings() | filterByFieldTruthyOrFalsy : 'blockId' : false"
+                                 [allUnblockedSelected]="allUnblockedSelected()"
+                                 [maxValueForLastColumn]="eventStore.maxValueForLastColumn()"
+                                 [maxSymbolWidthColumn]="MAX_SYMBOL_WIDTH_COLUMN"
+                                 (unblockedSelectionChange)="selectionChange($event)"
+                                 (toggleAllUnblockedSelection)="toggleAllUnblockedSelection($event)"
+                                 (editMarketPrice)="editAdjustPrice([$event])"
+                                 (broadcastEdit)="editBroadcast([$event]); toggleAllItems(false); selectionChange({ id: $event.ticketGroupID, checked: true })"
+        ></unblocked-listing-table>
+    </div>
+</ion-content>

@@ -1,0 +1,15 @@
+<div class="_d-f _f-dir-col _f-align-center">
+    <h2 class="_mb-24 _align-self-start">Login to your account</h2>
+    <login-form class="_w-100"
+                (resetCustomError)="customError.set('')"
+                (login)="login($event)"></login-form>
+    @if (customError()) {
+        <p class="_text-center _mt-12 _fs-15 _text-color-warning">{{ customError() }}</p>
+        @if (loginAttempts() >= appSettingsService.getAppSettings().loginFailureWarningCount) {
+            <p class="_text-center _mt-4 _fs-13 _text-color-gray">
+                Your account will be locked after {{ appSettingsService.getAppSettings().loginFailureLockingCount - loginAttempts() }} more attempts to log in
+            </p>
+        }
+    }
+</div>
+
