@@ -3,7 +3,6 @@ import { SearchEvent } from '@mobile-test-app/models/search-events/search-event'
 import { getUserUILocaleTimeZone } from '@mobile-test-app/helpers/date-helpers/date.helpers';
 import { TicketGroupEvent, TicketGroupEventAPI } from '../ticket-group-event/ticket-group-event';
 import { trimZeroFromNumber } from '@mobile-test-app/helpers/format-number-helpers/format-number.helpers';
-import { getDateFromRange } from '../../../pages/events-list/components/events-list-filters/helpers/get-date-from-date-range.helper';
 
 export class EventsFilters {
   endDate: Date;
@@ -79,16 +78,8 @@ export class EventsFiltersAPI {
       ShowFloorsAbove: data.showFloorsAbove,
       UiTimeZone: getUserUILocaleTimeZone(),
       VenueId: data.venueId,
-      StartDate: !data.productionId
-        ? data.selectedDateRange !== DATE_RANGE_TYPE_ID.custom
-          ? getDateFromRange(data.selectedDateRange).startDate.toDateString()
-          : data.startDate.toDateString()
-        : null,
-      EndDate: !data.productionId
-        ? data.selectedDateRange !== DATE_RANGE_TYPE_ID.custom
-          ? getDateFromRange(data.selectedDateRange).endDate.toDateString()
-          : data.endDate.toDateString()
-        : null,
+      StartDate: null,
+      EndDate: null,
     };
   }
 }
